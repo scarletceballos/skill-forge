@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets\logo\skillforge_logo.png" alt="Skill Forge"/>
+  <img src="frontend\public\skillforge_logo.png" alt="Skill Forge"/>
 </p>
 
 # <center>Skill Forge: <i>Skills that Shine, Gaps combine</i> </center>
