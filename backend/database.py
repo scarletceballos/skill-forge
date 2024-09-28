@@ -1,14 +1,11 @@
-
-# Online Python - IDE, Editor, Compiler, Interpreter
-
-pip install pymongo
+# To use database:
+# pip install pymongo
 
 from pymongo import MongoClient
 
 import fastapi2
 
-connection_string = "mongodb+srv://no89:<8pzd1hFpG5KFqPCK>@mydatabase.x3ahw.mongodb.net/?retryWrites=true&w=majority&appName=mydatabase
-"
+connection_string = "mongodb+srv://no89:<8pzd1hFpG5KFqPCK>@mydatabase.x3ahw.mongodb.net/?retryWrites=true&w=majority&appName=mydatabase"
 
 # Connect to MongoDB Atlas
 client = MongoClient(connection_string)
@@ -25,7 +22,7 @@ resume = response
 # Create a document to insert into MongoDB
 user_data = {
     "name": name,
-    "email": email
+    "email": email,
     "resume": resume
 }
 
