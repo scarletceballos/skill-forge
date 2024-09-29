@@ -10,8 +10,8 @@ app = FastAPI()
 os.makedirs('uploads', exist_ok=True)
 
 @app.post("/api/parse-document")
-async def get_skills(file: UploadFile = File(...)):
-    job_description = 'Kubernetes'
+async def get_skills(job_description: str, file: UploadFile = File(...)):
+    #job_description = 'Kubernetes'
     # Save the uploaded file
     file_location = f"uploads/{file.filename}"
     print(file_location)

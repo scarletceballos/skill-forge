@@ -3,3 +3,5 @@ curl -X POST "https://api.affinda.com/v1/resumes/" -H "Authorization: Bearer aff
 
 
 "https://api.duckduckgo.com/?q={python}&format=json&no_redirect=1&no_html=1"
+
+curl -X POST "http://localhost:8000/api/parse-document" -F "file=@/Users/afshanzubia/important_documents/resumefinal.pdf" -F job_description='Kubernetes'
