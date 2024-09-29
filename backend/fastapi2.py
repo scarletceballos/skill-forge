@@ -1,15 +1,19 @@
 from fastapi import FastAPI, UploadFile, File
-import requests
+from pdfparser import parse_pdf
 import os
 
 app = FastAPI()
 
+os.makedirs('uploads', exist_ok=True)
+
 @app.post("/api/parse-document")
 async def parse_document(file: UploadFile = File(...)):
     # Save the uploaded file
-    file_location = f"uploads/{file.filename}"
-    with open(file_location, "wb") as f:
-        f.write(await file.read())
+	file_location = f"uploads/{file.filename}"
+	with open(file_location, "wb") as f:
+		f.write(await file.read())
+	result = parse_pdf(file_location)
+	#insert code to move 
 
     # Send file to Affinda for parsing
     with open(file_location, "rb") as f:

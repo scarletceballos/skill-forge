@@ -1,13 +1,16 @@
 import requests
+import os
 
-url = "https://api.affinda.com/v3/documents"
+def parse_pdf(filepath):
+	url = "https://api.affinda.com/v3/documents"
+	with open(file_path, 'rb') as f:
+		files = {'file': f}
+		headers = {
+		"Authorization": f"Bearer {os.getenv('AFFINDA_API_KEY')}",
+		"accept": "application/json"
+	}
+	response = requests.post(url, files=files, headers=headers)
+	return response.json()
 
-payload = "-----011000010111000001101001\r\nContent-Disposition: form-data; name=\"wait\"\r\n\r\ntrue\r\n-----011000010111000001101001--"
-headers = {
-    "accept": "application/json",
-    "content-type": "multipart/form-data; boundary=---011000010111000001101001"
-}
 
-response = requests.post(url, data=payload, headers=headers)
-
-print(response.text)
+//how is this different from the code that is in the Affinda documentation?
