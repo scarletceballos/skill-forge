@@ -1,36 +1,43 @@
+
 from fastapi import FastAPI, UploadFile, File
 from pdfparser import parse_pdf
-import database
+from webscrapper import display_skills_summary
+from database import DBConnection
+from difference import Differences
 import os
 
-db1 = new DBConnection
+db1 = DBConnection()
 app = FastAPI()
-
 os.makedirs('uploads', exist_ok=True)
 
-
 @app.post("/api/parse-document")
-#would it be post or get? 
-async def get_skills(file: UploadFile = File(...), job_desciption):
-       #job description is taken as a second argument, and it just a string imported from frontend that the user inputs
+async def get_skills(job_description: str, file: UploadFile = File(...)):
     # Save the uploaded file
-	file_location = f"uploads/{file.filename}"
-	with open(file_location, "wb") as f:
-		f.write(await file.read())
-              
+    file_location = f"uploads/{file.filename}"
+    with open(file_location, "wb") as f:
+        f.write(await file.read())
+
     try:
-		#send the file to affinda for parsing (pdfparser)
+        # Send the file to affinda for parsing (pdfparser)
         result = parse_pdf(file_location)
+    except Exception as e:
+        return {"error": "Sorry, we could not parse your file"}
 
-    except _______________________:
-        return "Sorry, we could not parse your file"
-
-    #save the results (the response json ) into database
+    # Save the results into the database
     db1.insert_a_user(result)
-    db1.close()
 
-    #make a call to the difference.py method
-    get_difference_in_skills(result, job_description)
+    # Make a call to the difference.py method
+    dif = Differences()
+    skill_dict = dif.get_difference_in_skills(result, job_description)
 
+    missing_skills = skill_dict['missing_skills']
+    percentage_known = skill_dict['percentage_known']
 
+    # Get summaries for missing skills
+    skills_summary_dict = display_skills_summary(missing_skills)
+
+    return {
+        "skills_summary": skills_summary_dict,
+        "percentage_known": percentage_known
+    }
 
