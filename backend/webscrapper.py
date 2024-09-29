@@ -12,3 +12,4 @@ def display_skills_summary(dict):
 
     return final_dict
 
+

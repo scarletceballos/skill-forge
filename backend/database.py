@@ -4,7 +4,7 @@
 #Only function of this class is to take response.json and store in a MongoDB database.
 from pymongo import MongoClient
 
-class DBCOnnection:
+class DBConnection:
     def __init__(self):
         # Connect to MongoDB Atlas
         # Specify the database and collection
@@ -29,4 +29,3 @@ class DBCOnnection:
 
     def get_last_parsed(self):
         return self.collection.find_one(sort=[('_id', -1)])
-
